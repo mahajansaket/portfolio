@@ -5,6 +5,7 @@ import recovid19 from "./assets/img/recovid19.jpg";
 import personalWebsite from "./assets/img/personalWebsite.JPG";
 import rethawingBrush from "./assets/img/rethawingBrush.jpg";
 import reSIS from "./assets/img/reSIS.jpg";
+import reOver from "./assets/img/reoverlay.jpg";
 import { Button } from "semantic-ui-react";
 
 export default function Page2() {
@@ -13,12 +14,39 @@ export default function Page2() {
     setIndex(selectedIndex);
   };
 
-
   return (
     <Container fluid>
-    
-      <Carousel activeIndex={index} onSelect={handleSelect} >
-        
+      <Carousel activeIndex={index} onSelect={handleSelect}>
+       <Carousel.Item>
+          <h1 class="ui blue header">GatsbyJS Website</h1>
+          <img
+            className="d-block w-100"
+            src={personalWebsite}
+            alt="Second slide"
+          />
+
+          <Carousel.Caption>
+            <Button fluid href="https://smahajan.com/" target="_blank">
+              {" "}
+              Click to Open
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <h1 class="ui blue header">ReactJS Website</h1>
+          <img className="d-block w-100" src={reOver} alt="Second slide" />
+
+          <Carousel.Caption>
+            <Button
+              fluid
+              href="https://www.thawing-brushlands-32902.herokuapp.com/"
+              target="_blank"
+            >
+              {" "}
+              Click to Open
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
         <Carousel.Item>
           <h1 class="ui blue header">COVID-19 Tracker</h1>
           <img className="d-block w-100" src={recovid19} alt="First slide" />
@@ -34,60 +62,25 @@ export default function Page2() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-         <h1 class="ui blue header">ReactJS Website</h1>
-          <img
-            className="d-block w-100"
-            src={rethawingBrush}
-            alt="Second slide"
-          />
-
-          <Carousel.Caption>
-            <Button
-            fluid
-            href="https://www.thawing-brushlands-32902.herokuapp.com/"
-            target="_blank"
-          >  Click to Open
-          </Button>
-          </Carousel.Caption>
-          
-          
-        </Carousel.Item>
-        <Carousel.Item>
-         <h1 class="ui blue header">Student Management Website</h1>
+          <h1 class="ui blue header">Student Management Website</h1>
           <img className="d-block w-100" src={reSIS} alt="Third slide" />
 
-         <Carousel.Caption>
-            <Button
-            fluid
-            href="https://agile-cove-39529.herokuapp.com/"
-            target="_blank"
-          >  Click to Open
-          </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <h1 class="ui blue header">GatsbyJS Website</h1>
-          <img
-            className="d-block w-100"
-            src={personalWebsite}
-            alt="Second slide"
-          />
-
           <Carousel.Caption>
             <Button
-            fluid
-            href="https://smahajan.com/"
-            target="_blank"
-          >  Click to Open
-          </Button>
-          
+              fluid
+              href="https://agile-cove-39529.herokuapp.com/"
+              target="_blank"
+            >
+              {" "}
+              Click to Open
+            </Button>
           </Carousel.Caption>
         </Carousel.Item>
+       
       </Carousel>
     </Container>
   );
 }
-
 
 // import withAutoplay from 'react-awesome-slider/dist/autoplay';
 
