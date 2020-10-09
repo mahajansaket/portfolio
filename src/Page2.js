@@ -88,6 +88,7 @@ export default function Page2() {
   );
 }
 
+
 // import withAutoplay from 'react-awesome-slider/dist/autoplay';
 
 // import recovid19 from './assets/img/recovid19.jpg';
