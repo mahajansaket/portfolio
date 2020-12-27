@@ -6,6 +6,7 @@ import personalWebsite from './assets/img/personalWebsite.JPG';
 import reSIS from './assets/img/reSIS.jpg';
 import reOver from './assets/img/reoverlay.jpg';
 import calApp from './assets/img/calculator.jpg';
+import fileManager from './assets/img/fileManager.jpg';
 import { Button } from 'semantic-ui-react';
 
 export default function Page2() {
@@ -17,6 +18,25 @@ export default function Page2() {
   return (
     <Container fluid>
       <Carousel activeIndex={index} onSelect={handleSelect}>
+        <Carousel.Item>
+          <h1 class="ui blue header">File Manager</h1>
+          <img
+            className="d-block w-100"
+            src={fileManager}
+            alt="https://warm-beach-30718.herokuapp.com/"
+          />
+
+          <Carousel.Caption>
+            <Button
+              fluid
+              href="https://warm-beach-30718.herokuapp.com/"
+              target="_blank"
+            >
+              {' '}
+              Click to Open
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
         <Carousel.Item>
           <h1 class="ui blue header">GatsbyJS Website</h1>
           <img
