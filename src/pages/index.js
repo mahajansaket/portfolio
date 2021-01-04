@@ -1,115 +1,86 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import Layout from '../components/layout'
 
 import Header from '../components/Header'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
 
-class IndexPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isArticleVisible: false,
-      timeout: false,
-      articleTimeout: false,
-      article: '',
-      loading: 'is-loading'
+function IndexPage(props) {
+  const wrapperRef = React.useRef(null)
+  const setWrapperRef = node => (wrapperRef.current = node) // set current ref value
+
+  const [isArticleVisible, setIsArticleVisible] = useState(false)
+  const [timeout, setTimeout] = useState(false)
+  const [articleTimeout, setArticleTimeout] = useState(false)
+  const [article, setArticle] = useState('')
+  const [loading, setLoading] = useState('is-loading')
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setLoading('')
+    }, 100)
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      clearTimeout(timeoutId)
+      document.removeEventListener('mousedown', handleClickOutside)
     }
-    this.handleOpenArticle = this.handleOpenArticle.bind(this)
-    this.handleCloseArticle = this.handleCloseArticle.bind(this)
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    // Effect triggered on component mount only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleOpenArticle = article => {
+    setIsArticleVisible(isArticleVisible => !isArticleVisible)
+    setArticle(article)
+    setTimeout(() => setTimeout(timeout => !timeout), 325)
+    setTimeout(() => setArticleTimeout(articleTimeout => !articleTimeout), 350)
   }
 
-  componentDidMount () {
-    this.timeoutId = setTimeout(() => {
-        this.setState({loading: ''});
-    }, 100);
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUnmount () {
-    if (this.timeoutId) {
-        clearTimeout(this.timeoutId);
-    }
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  setWrapperRef(node) {
-    this.wrapperRef = node;
-  }
-
-  handleOpenArticle(article) {
-
-    this.setState({
-      isArticleVisible: !this.state.isArticleVisible,
-      article
-    })
-
+  const handleCloseArticle = article => {
+    setArticleTimeout(articleTimeout => !articleTimeout)
+    // setTimeout(() => setTimeout(timeout => !timeout), 325)
     setTimeout(() => {
-      this.setState({
-        timeout: !this.state.timeout
-      })
-    }, 325)
-
-    setTimeout(() => {
-      this.setState({
-        articleTimeout: !this.state.articleTimeout
-      })
+      setIsArticleVisible(isArticleVisible => !isArticleVisible)
+      setArticle('')
     }, 350)
-
   }
 
-  handleCloseArticle() {
-
-    this.setState({
-      articleTimeout: !this.state.articleTimeout
-    })
-
-    setTimeout(() => {
-      this.setState({
-        timeout: !this.state.timeout
-      })
-    }, 325)
-
-    setTimeout(() => {
-      this.setState({
-        isArticleVisible: !this.state.isArticleVisible,
-        article: ''
-      })
-    }, 350)
-
-  }
-
-  handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      if (this.state.isArticleVisible) {
-        this.handleCloseArticle();
+  const handleClickOutside = event => {
+    if (!wrapperRef.current.contains(event.target)) {
+      // access current ref value
+      if (isArticleVisible) {
+        handleCloseArticle()
       }
     }
   }
 
-  render() {
-    return (
-      <Layout location={this.props.location}>
-        <div className={`body ${this.state.loading} ${this.state.isArticleVisible ? 'is-article-visible' : ''}`}>
+  return (
+    <PayPalScriptProvider options={{ 'client-id': 'sb' }}>
+      <Layout location={props.location}>
+        <div
+          className={`body ${loading} ${
+            isArticleVisible ? 'is-article-visible' : ''
+          }`}
+        >
           <div id="wrapper">
-            <Header onOpenArticle={this.handleOpenArticle} timeout={this.state.timeout} />
+            <Header onOpenArticle={handleOpenArticle} timeout={timeout} />
             <Main
-              isArticleVisible={this.state.isArticleVisible}
-              timeout={this.state.timeout}
-              articleTimeout={this.state.articleTimeout}
-              article={this.state.article}
-              onCloseArticle={this.handleCloseArticle}
-              setWrapperRef={this.setWrapperRef}
+              isArticleVisible={isArticleVisible}
+              timeout={timeout}
+              articleTimeout={articleTimeout}
+              article={article}
+              onCloseArticle={handleCloseArticle}
+              setWrapperRef={setWrapperRef}
             />
-            <Footer timeout={this.state.timeout} />
+            <Footer timeout={timeout} />
           </div>
           <div id="bg"></div>
         </div>
       </Layout>
-    )
-  }
+    </PayPalScriptProvider>
+  )
 }
 
 export default IndexPage

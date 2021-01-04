@@ -1,0 +1,38 @@
+.carousel * {
+    box-sizing:border-box;
+   }
+   
+
+.carousel.carousel-slider .control-arrow {
+    top:50%;
+    color:#fff;
+    font-size:26px;
+    bottom:0;
+    margin-top:0;
+    padding:revert;
+   }
+
+   .carousel .slide .legend {
+    transition:all .5s ease-in-out;
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    margin-left:-45%;
+    width:90%;
+    border-radius:10px;
+    background:#000;
+    color:#fff;
+    padding:10px;
+    font-size:12px;
+    text-align:center;
+    opacity:0.25;
+    transition:opacity .35s ease-in-out;
+    background-color: darkgray;
+   }
+
+   .carousel:hover .slide .legend {
+    opacity:1;
+    background-color: #c1b9b9;
+   }
+   
+   
